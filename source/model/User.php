@@ -20,7 +20,8 @@ class User extends Model
     $address = null,$role_id = null,$password = null) 
     {
         parent::__construct();
-        $this->id = $id;
+        $this->id = (int) $id;
+        $this->is_admin = (int) $is_admin;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;

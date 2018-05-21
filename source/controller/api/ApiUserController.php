@@ -21,7 +21,8 @@ class ApiUserController extends ApiController
         $user = new User;
         $result = $user->login($data);
         if ($result) {
-            $_SESSION['user'] = new User($result->id,$result->is_admin,$result->username,$result->email,$result->avatar,$result->phone,$result->address,$result->role_id);
+            $user = new User($result->id,$result->is_admin,$result->username,$result->email,$result->avatar,$result->phone,$result->address,$result->role_id);
+            $_SESSION['user'] = $user;
             return $this->setSuccess(200,$result);
         } else {
             $message = 'Username/password doest not marked or this account does not exit';
