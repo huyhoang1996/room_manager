@@ -1,4 +1,4 @@
 <?php
-    require 'Connect.php';
-    require 'controller/Controller.php';
+    include 'Connect.php';
+    include 'controller/Controller.php';
 ?>

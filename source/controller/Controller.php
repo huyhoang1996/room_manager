@@ -1,9 +1,12 @@
 <?php
 Namespace controller;
 require "controller/web/UserController.php";
+require "controller/web/DashBoardController.php";
 require "controller/api/ApiUserController.php";
-Use controller\web\UserController as UserController;
-Use controller\api\ApiUserController as ApiUserController;
+
+Use controller\web\UserController;
+Use controller\web\DashBoardController;
+Use controller\api\ApiUserController;
 class Controller
 {
     function handleWebRequest($web){
@@ -27,8 +30,12 @@ class Controller
             if ($user->isAdmin()){
                 switch($web){
                     case 'dashboard':
-                        echo "ok may la admin";
-                    break;   
+                        $this->useWebController('DashBoardController','home');
+                    break;
+                    case 'logout':
+                        unset($_SESSION['user']);
+                        header("Location: ?web=index");
+                    break;
                     default:
                         echo $web;
                     break;
@@ -37,7 +44,7 @@ class Controller
                 switch($web){
                     case 'dashboard':
                         echo "May deo phai admin con cho";
-                    break;   
+                    break;
                     default:
                         echo $web;
                     break;
@@ -61,6 +68,9 @@ class Controller
         switch($controller){
             case 'UserController':
                 $control = new UserController;
+            break;
+            case 'DashBoardController':
+                $control = new DashBoardController;
             break;
             default:
                 echo "invalidate controller";

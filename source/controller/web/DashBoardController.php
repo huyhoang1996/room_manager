@@ -1,19 +1,19 @@
 <?php
 namespace controller\web;
-class UserController
+class DashBoardController
 {
     public function regedis($function) {
         switch($function) {
-            case 'adminlogin' :
-                $this->adminlogin();
+            case 'home' :
+                $this->home();
             break;
             default :
                 echo "invalidate function";
             break;
         }
     }
-    public function adminlogin(){
-        $this->view('admin/login.php');
+    public function home(){
+        $this->view('admin/home.php');
     }
 
     function view($view,$parram = null){

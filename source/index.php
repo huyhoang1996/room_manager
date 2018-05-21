@@ -1,5 +1,6 @@
 <?php 
     require 'autoload.php';
+    ob_start();
     session_start();
     $controller = new controller\Controller();
     if(isset($_GET['web'])) {
@@ -14,4 +15,5 @@
             $controller->handleWebRequest(null);
         }
     }
+    ob_end_flush();
 ?>

@@ -38,7 +38,6 @@
                 if (password =="") {
                     $("#passwordError").html("invalid Password");
                 }
-
             }
         }
         function clearError(){
@@ -58,7 +57,7 @@
                 },
                 statusCode: {
                     200: function( response ) {
-                        // window.location.href = 
+                        window.location.href = window.BaseUrl + '/?web=dashboard';
                     },
                     404: function(response) {
                         var message = response.responseJSON.meta.message;
