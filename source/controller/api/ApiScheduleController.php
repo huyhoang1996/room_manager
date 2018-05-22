@@ -15,6 +15,9 @@ class ApiScheduleController
             case 'detroy' :
                 $this->detroy();
             break;
+            case 'update' :
+                $this->update();
+            break;
             default :
                 echo "invalidate function";
             break;
@@ -82,6 +85,14 @@ class ApiScheduleController
         return $this->setSuccess(200,$result);
     }
 
+    public function update(){
+        $data =  $_POST['data'];
+        $shedule = new Schedule();
+        $result = $shedule->update($data);
+        return $this->setSuccess(200,$result);
+    }
+
+    
 }
 
 ?>

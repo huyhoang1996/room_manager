@@ -124,6 +124,9 @@ class Controller
             case 'schedule-detroy':
                 $this->useApiController('ApiScheduleController','detroy');
             break;
+            case 'schedule-update':
+                $this->useApiController('ApiScheduleController','update');
+            break;
             default:
                 echo $api;
             break;

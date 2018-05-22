@@ -57,7 +57,11 @@
                 },
                 statusCode: {
                     200: function( response ) {
-                        window.location.href = window.BaseUrl + '/?web=home';
+                        if (response.data.is_admin == "1"){
+                            window.location.href = window.BaseUrl + '/?web=dashboard';
+                        } else {
+                            window.location.href = window.BaseUrl + '/?web=home';
+                        }
                     },
                     404: function(response) {
                         var message = response.responseJSON.meta.message;

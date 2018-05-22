@@ -42,8 +42,30 @@
     <script src="public/assets/js/daypilot-all.min.js"></script>
     <script>
         var checkedLab = null;
-        var begin_at;
-        var end_at;
+        var begin_at = getSunday(new Date());
+        var end_at  = getSatuday(new Date());
+        function getSunday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day;
+            var Sunday = new Date(d.setDate(diff));
+            var curr_date = Sunday.getDate();
+            var curr_month = Sunday.getMonth() + 1; 
+            var curr_year = Sunday.getFullYear();
+            return curr_year+'-'+curr_month+'-'+curr_date;
+        }
+        
+        function getSatuday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+            diff = d.getDate() - day + 6; // adjust when day is sunday
+            var Satuday = new Date(d.setDate(diff));
+            var curr_date = Satuday.getDate();
+            var curr_month = Satuday.getMonth() + 1; 
+            var curr_year = Satuday.getFullYear();
+            return curr_year+'-'+curr_month+'-'+curr_date;
+        }
+
         var eventData = [];
         var dp = new DayPilot.Calendar("dp");
             dp.startDate = new Date();
@@ -119,14 +141,58 @@
             }
         };
         
+        dp.onEventMoved = function(args) {
+            listSchedule = [];
+            var event = args.e.data;
+            var result = {
+                event : event.text,
+                begin_at : event.start.value,
+                end_at : event.end.value,
+                id : event.id,
+            }
+            listSchedule.push(result);
+            if (User.id == event.user_id ){
+                updateSchedule();
+            }
+        };
+        
         dp.onEventMove = function(args) {
             var event = args.e.data;
-            console.log(event);
+            if (event.user_id != User.id){
+                alert('Not your event');
+                args.preventDefault();
+            }
+        };
+        
+        dp.onEventDelete = function(args) {
+            var event = args.e.data;
+            if (event.user_id != User.id){
+                alert('Not your event');
+                args.preventDefault();
+            }
         };
         
         dp.onEventResize = function(args) {
             var event = args.e.data;
-            console.log(event);
+            if (event.user_id != User.id){
+                alert('Not your event');
+                args.preventDefault();
+            }
+        };
+
+        dp.onEventResized = function(args) {
+            listSchedule = [];
+            var event = args.e.data;
+            var result = {
+                event : event.text,
+                begin_at : event.start.value,
+                end_at : event.end.value,
+                id : event.id,
+            }
+            listSchedule.push(result);
+            if (User.id == event.user_id ){
+                updateSchedule();
+            }
         };
 
         var listSchedule = [];
@@ -234,7 +300,7 @@
                         resizeDisabled: true,
                         moveDisabled: true,
                         clickDisabled: true,
-                        deleteDisabled: true,
+                        "deleteDisabled": true,
                         doubleClickDisabled: true
                     });
                 }
@@ -252,11 +318,29 @@
                 },
                 statusCode: {
                     200: function( response ) {
+                        loadSchedule();
+                    },
+                    404: function(response) {
+                        var message = response.responseJSON.meta.message;
+                    },
+                }
+            });
+        }
+
+        function updateSchedule(){
+            $.ajax({
+                type: "POST",
+                url: "?api=schedule-update",
+                data: {
+                    data: listSchedule,
+                },
+                statusCode: {
+                    200: function( response ) {
+                        listSchedule=[];
                         // loadSchedule();
                     },
                     404: function(response) {
                         var message = response.responseJSON.meta.message;
-                        $("#loginError").html(message);
                     },
                 }
             });

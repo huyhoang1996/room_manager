@@ -62,6 +62,18 @@ class Schedule extends Connect
         return $result;;
     }
 
+    public function update($data){
+        $obj = $data[0];
+        $id = $obj['id'];
+        $begin_at = $obj['begin_at'];
+        $end_at = $obj['end_at'];
+        $event = $obj['event'];
+        $sql = "UPDATE $this->table SET begin_at = '$begin_at', end_at = '$end_at', event = '$event' WHERE id='$id'";
+        $result = mysqli_query($this->conn,$sql);
+        return $result;
+    }
+
+    
     
 }
 ?>
