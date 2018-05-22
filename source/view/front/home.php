@@ -4,13 +4,13 @@
 <?php endblock() ?>
 <?php startblock('main') ?>
     <div class="sidebar" data-color="green" data-image="public/assets/img/sidebar-5.jpg">
-        <?php include('sidebar.php'); ?>
+        <?php include('common/sidebar.php'); ?>
     </div>
     <div class="main-panel">
-        <?php include('header.php'); ?>
+        <?php include('common/header.php'); ?>
         <?php startblock('content') ?>
         <?php endblock()?>
-        <?php include('footer.php'); ?>
+        <?php include('common/footer.php'); ?>
     </div>
 <?php endblock() ?>
 <?php startblock('script') ?>

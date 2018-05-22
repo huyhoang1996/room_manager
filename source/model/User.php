@@ -1,8 +1,7 @@
 <?php
 namespace model;
-require "model/Model.php";
-Use model\Model;
-class User extends Model
+use Connect;
+class User extends Connect
 {
     public $table = 'users';
     public $is_admin;
@@ -17,7 +16,7 @@ class User extends Model
 
     function __construct($id = null,$is_admin = false,$username = null,
     $email = null,$avatar = null,$phone = null,
-    $address = null,$role_id = null,$password = null) 
+    $address = null,$role_id = null,$password = null)
     {
         parent::__construct();
         $this->id = (int) $id;
@@ -76,6 +75,5 @@ class User extends Model
         $obj = mysqli_fetch_object($result);
         return $obj;
     }
-
 }
 ?>
