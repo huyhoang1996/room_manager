@@ -36,7 +36,7 @@
     <script src="public/assets/js/main.js" type="text/javascript"></script>
     <?php $user = isset($_SESSION['user'])? $_SESSION['user']:'' ?>
     <script>
-       var User = '<?php echo json_encode($user) ?>';
+       var User = JSON.parse('<?php echo json_encode($user) ?>');
     </script>
     <?php startblock('script') ?>
     <?php endblock() ?>

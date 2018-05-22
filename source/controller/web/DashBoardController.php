@@ -8,7 +8,7 @@ class DashBoardController
                 $this->home();
             break;
             default :
-                echo "invalidate function";
+                echo "invalidate controller function";
             break;
         }
     }

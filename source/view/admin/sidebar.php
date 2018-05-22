@@ -19,7 +19,7 @@
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/?web=list_data">
                 <i class="pe-7s-note2"></i>
                 <p>Table List</p>
             </a>

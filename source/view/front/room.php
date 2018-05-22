@@ -44,9 +44,12 @@
         var checkedLab = null;
         var begin_at;
         var end_at;
+        var eventData = [];
         var dp = new DayPilot.Calendar("dp");
             dp.startDate = new Date();
             dp.viewType = "Week";
+            dp.eventDoubleClickHandling = "Enabled";
+            dp.eventDeleteHandling = "Update";
             // dp.headerDateFormat = "DDDD";
             dp.init();
         var nav = new DayPilot.Navigator("nav");
@@ -63,7 +66,7 @@
             nav.init();
         // event creating
         dp.onTimeRangeSelected = function (args) {
-            if ( window.User == ''){
+            if ( User == ''){
                 alert('Vui long dang nhap');
                 return;
             }
@@ -81,9 +84,38 @@
         };
 
         dp.onEventClick = function(args) {
-            if ( window.User == ''){
+            if ( User == ''){
                 alert('Vui long dang nhap');
                 return;
+            }
+        };
+        
+        dp.onEventClick = function(args) {
+            if ( User == ''){
+                alert('Vui long dang nhap');
+                return;
+            }
+        };
+        
+        dp.onDoubleClick = function(args) {
+            if ( User == ''){
+                alert('Vui long dang nhap');
+                return;
+            }
+            console.log(args);
+        };
+        
+        dp.onEventDelete = function(args) {
+            if (!confirm("Do you really want to delete this event?")) {
+                args.preventDefault();
+            } else {
+                var event = args.e.data;
+                if (event.user_id == User.id){
+                    deleteEvent(event.id);
+                } else {
+                    alert('Not your event');
+                    args.preventDefault();
+                }
             }
         };
 
@@ -92,6 +124,7 @@
         function pushEventList(e){
             var data = e.data;
             var result = {
+                temp_id : data.id,
                 event : data.text,
                 begin_at : data.start.value,
                 end_at : data.end.value,
@@ -135,7 +168,7 @@
                 },
                 statusCode: {
                     200: function( response ) {
-                        window.location.href = window.BaseUrl + '/?web=room';
+                        loadSchedule();
                     },
                     404: function(response) {
                         var message = response.responseJSON.meta.message;
@@ -144,23 +177,74 @@
                 }
             });
         }
-
         function getDataSchedule(){
-            
             $.ajax({
                 type: "POST",
                 url: "?api=schedule-show",
                 data: {
                     data: {
-                        'lab_id':checkedLab.id,
+                        'room_id':checkedLab.id,
                         'begin_at':begin_at,
                         'end_at':end_at 
                     },
                 },
                 statusCode: {
                     200: function( response ) {
-                        console.log(response);
-                        // window.location.href = window.BaseUrl + '/?web=room';
+                        eventData = response.data;
+                        updateEvent();
+                    },
+                }
+            });
+        }
+        function updateEvent(){
+            for (i=0; i<eventData.length; i++) {
+                var ev = eventData[i];
+                if (User.id == parseInt(ev.user_id) ){
+                        var e = new DayPilot.Event({
+                        start: new DayPilot.Date(ev.begin_at),
+                        end: new DayPilot.Date(ev.end_at),
+                        id: ev.id,
+                        text: ev.event,
+                        user_id : ev.user_id,
+                        "backColor": "#B6D7A8",
+                        "borderColor": "#6AA84F",
+                    });
+                }else {
+                    var e = new DayPilot.Event({
+                        start: new DayPilot.Date(ev.begin_at),
+                        end: new DayPilot.Date(ev.end_at),
+                        id: ev.id,
+                        text: ev.event,
+                        user_id : ev.user_id,
+                        "backColor": "#dca5a1",
+                        "borderColor": "#6AA84F",
+                        rightClickDisabled: true,
+                        resizeDisabled: true,
+                        moveDisabled: true,
+                        clickDisabled: true,
+                        deleteDisabled: true,
+                        doubleClickDisabled: true
+                    });
+                }
+                dp.events.add(e);
+            }
+        }
+        function deleteEvent(id){
+            $.ajax({
+                type: "POST",
+                url: "?api=schedule-detroy",
+                data: {
+                    data: {
+                        'id':id,
+                    },
+                },
+                statusCode: {
+                    200: function( response ) {
+                        // loadSchedule();
+                    },
+                    404: function(response) {
+                        var message = response.responseJSON.meta.message;
+                        $("#loginError").html(message);
                     },
                 }
             });

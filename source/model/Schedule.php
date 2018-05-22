@@ -41,5 +41,27 @@ class Schedule extends Connect
         }
         return $array;;
     }
+
+    public function find($data){
+        $room_id = $data['room_id'];
+        $begin_at = $data['begin_at'];
+        $end_at = $data['end_at'];
+        $sql = "SELECT * FROM $this->table WHERE room_id='$room_id' AND begin_at >= '$begin_at' AND end_at <= '$end_at'";
+        $result = mysqli_query($this->conn,$sql);
+        $array = array();
+        while ($obj = mysqli_fetch_object($result)){
+            $array[]=$obj;
+        }
+        return $array;;
+    }
+
+    public function detroy($data){
+        $id = $data['id'];
+        $sql = "DELETE FROM $this->table WHERE id=$id";
+        $result = mysqli_query($this->conn,$sql);
+        return $result;;
+    }
+
+    
 }
 ?>

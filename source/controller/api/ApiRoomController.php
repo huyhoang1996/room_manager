@@ -1,19 +1,15 @@
 <?php
 namespace controller\api;
-require "model/Schedule.php";
-use model\Schedule;
-class ApiScheduleController
+use Connect;
+class ApiRoomController extends Connect
 {
     public function regedis($function) {
         switch($function) {
-            case 'store' :
-                $this->store();
+            case 'add_room' :
+                $this->add_room();
             break;
-            case 'show' :
-                $this->show();
-            break;
-            case 'detroy' :
-                $this->detroy();
+            case 'update_room' :
+                $this->update_room();
             break;
             default :
                 echo "invalidate function";
@@ -52,36 +48,34 @@ class ApiScheduleController
         echo $myJSON;
         http_response_code($code);
     }
-    
-    public function store(){
+    public function add_room(){
         $data =  $_POST['data'];
-        foreach($data as $event) {
-            $shedule = new Schedule();
-            $shedule->store($event);
-        }
-        $data = [];
-        $message = 'Store success';
-        return $this->setSuccess(200,$data,$message);
-    }
-    
-    public function show(){
-        $data =  $_POST['data'];
-        if (!isset($data['begin_at'])){
-            $result = [];
+        $name = $data['name'];
+        $sql = "INSERT INTO rooms (name) VALUES ('$name');";
+        $result = mysqli_query($this->conn,$sql);
+        if ($result) {
             return $this->setSuccess(200,$result);
+        } else {
+            $message = 'Error Server';
+            return $this->setError(404,$result,$message);
         }
-        $shedule = new Schedule();
-        $result = $shedule->find($data);
-        return $this->setSuccess(200,$result);
     }
-
-    public function detroy(){
+    public function update_room(){
         $data =  $_POST['data'];
-        $shedule = new Schedule();
-        $result = $shedule->detroy($data);
-        return $this->setSuccess(200,$result);
+        $name = $data['name'];
+        $id = $data['id'];
+        $sql = "UPDATE rooms
+            SET name = '$name'
+            WHERE ID = $id;";
+        $result = mysqli_query($this->conn,$sql);
+        if ($result) {
+            return $this->setSuccess(200,$result);
+        } else {
+            $message = 'Error Server';
+            return $this->setError(404,$result,$message);
+        }
     }
-
+   
 }
 
 ?>
