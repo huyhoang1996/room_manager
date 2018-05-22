@@ -36,8 +36,12 @@ class Controller
                 $this->useWebController('RoomController','index');
                 exit();
             break;
+            case 'update_user':
+                $this->useWebController('UserController','update_user');
+            exit();
             case 'logout':
                 unset($_SESSION['user']);
+                unset($_SESSION['user_id']);
                 header("Location: ?web=home");
                 exit();
             break;
@@ -83,7 +87,18 @@ class Controller
                     case 'delete_room':
                         $this->useWebController('RoomController','delete_room');
                     break;
-
+                    case 'list_user':
+                        $this->useWebController('UserController','list_user');
+                    break;
+                    case 'add_user':
+                        $this->useWebController('UserController','add_user');
+                    break; 
+                    case 'update_user':
+                        $this->useWebController('UserController','update_user');
+                    break;
+                    case 'delete_user':
+                        $this->useWebController('UserController','delete_user');
+                    break;
                     default:
                         echo $web;
                     break;
@@ -120,6 +135,12 @@ class Controller
             break;
             case 'update_room':
                 $this->useApiController('ApiRoomController','update_room');
+            break;
+            case 'add_user':
+                $this->useApiController('ApiUserController','add_user');
+            break;
+            case 'update_user':
+                $this->useApiController('ApiUserController','update_user');
             break;
             case 'schedule-detroy':
                 $this->useApiController('ApiScheduleController','detroy');

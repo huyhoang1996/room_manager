@@ -13,17 +13,27 @@
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/?web=update_user&id=<?php echo $_SESSION['user_id'];?>">
                 <i class="pe-7s-user"></i>
                 <p>User Profile</p>
             </a>
         </li>
-        <li>
-            <a href="">
-                <i class="pe-7s-note2"></i>
-                <p>Table List</p>
-            </a>
-        </li>
+        <?php
+            if ($_SESSION['is_admin']){
+                echo '<li>
+                    <a href="/?web=list_data">
+                        <i class="pe-7s-note2"></i>
+                        <p>Room List</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/?web=list_user">
+                        <i class="pe-7s-note2"></i>
+                        <p>User List</p>
+                    </a>
+                </li>';
+            }
+        ?>
     </ul>
 </div>
 

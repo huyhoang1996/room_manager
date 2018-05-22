@@ -75,5 +75,26 @@ class User extends Connect
         $obj = mysqli_fetch_object($result);
         return $obj;
     }
+    public function all(){
+        $sql = "SELECT * FROM $this->table";
+        $result = mysqli_query($this->conn,$sql);
+        $array = array();
+        while ($obj = mysqli_fetch_object($result)){
+            $array[]=$obj;
+        }
+        return $array;
+    }
+    public function get_user($id){
+        $sql = "SELECT * FROM $this->table WHERE ID='$id' ";
+        $result = mysqli_query($this->conn,$sql);
+        $obj = mysqli_fetch_object($result);
+        return $obj;
+    }
+    public function delete_user($id){
+        $sql = "DELETE FROM $this->table WHERE ID='$id' ";
+        $result = mysqli_query($this->conn,$sql);
+        $obj = mysqli_fetch_object($result);
+        return $obj;
+    }
 }
 ?>

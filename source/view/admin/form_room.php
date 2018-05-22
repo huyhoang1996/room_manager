@@ -1,7 +1,7 @@
 <?php include 'dashboard.php' ?>
 <?php startblock('content') ?>
 <div class="container">
-  	<h2>Vertical (basic) form</h2>
+  	<h2>Room form</h2>
 	<div class="col-md-6">
 		<div class="error"></div>
 		<form id="formRoom" onkeyup="clearError()">
