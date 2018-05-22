@@ -9,8 +9,6 @@
                 </li>
             </ul> -->
         </nav>
-        <p class="copyright pull-right">
-            &copy; <script>document.write(new Date().getFullYear())</script> Made by Huy Hoàng , Tấn Nam.
-        </p>
+        
     </div>
 </footer>

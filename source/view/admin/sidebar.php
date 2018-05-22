@@ -37,4 +37,14 @@
         
     </ul>
 </div>
-
+<p class="copyright pull-right" style="
+    position:  absolute;
+    z-index: 4;
+    bottom: 2px;
+    color: black;
+    font-size: 12px;
+    text-align: center;
+    left: 10px;
+">
+    &copy; <script>document.write(new Date().getFullYear())</script> Made by Huy Hoàng , Tấn Nam.
+</p>

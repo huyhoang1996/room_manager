@@ -34,6 +34,10 @@
     <script src="public/assets/js/jquery-3.3.1.min.js" type="text/javascript"></script>
 	<script src="public/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="public/assets/js/main.js" type="text/javascript"></script>
+    <?php $user = isset($_SESSION['user'])? $_SESSION['user']:'' ?>
+    <script>
+       var User = JSON.parse('<?php echo json_encode($user) ?>');
+    </script>
     <?php startblock('script') ?>
     <?php endblock() ?>
 </html>
