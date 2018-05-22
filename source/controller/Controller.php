@@ -3,11 +3,13 @@ Namespace controller;
 require "controller/web/UserController.php";
 require "controller/web/DashBoardController.php";
 require "controller/web/HomeController.php";
+require "controller/web/RoomController.php";
 require "controller/api/ApiUserController.php";
 
 Use controller\web\UserController;
 Use controller\web\DashBoardController;
 Use controller\web\HomeController;
+Use controller\web\RoomController;
 
 Use controller\api\ApiUserController;
 class Controller
@@ -16,13 +18,20 @@ class Controller
         switch($web){
             case null:
                 header("Location: ?web=home");
+                exit();
             break;
             case 'home':
                 $this->useWebController('HomeController','home');
+                exit();
+            break;
+            case 'room':
+                $this->useWebController('RoomController','index');
+                exit();
             break;
             case 'logout':
                 unset($_SESSION['user']);
                 header("Location: ?web=home");
+                exit();
             break;
         }
 
@@ -95,6 +104,9 @@ class Controller
             break;
             case 'HomeController':
                 $control = new HomeController;
+            break;
+            case 'RoomController':
+                $control = new RoomController;
             break;
             default:
                 echo "invalidate controller";

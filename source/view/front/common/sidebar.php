@@ -7,9 +7,9 @@
 
     <ul class="nav">
         <li class="">
-            <a href="">
+            <a href="?web=room">
                 <i class="pe-7s-graph"></i>
-                <p>Home</p>
+                <p>Lab Room</p>
             </a>
         </li>
         <li>
