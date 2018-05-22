@@ -47,7 +47,19 @@ class Room extends Connect
         while ($obj = mysqli_fetch_object($result)){
             $array[]=$obj;
         }
-        return $array;;
+        return $array;
+    }
+    public function getRoom($id){
+        $sql = "SELECT * FROM $this->table WHERE ID='$id' ";
+        $result = mysqli_query($this->conn,$sql);
+        $obj = mysqli_fetch_object($result);
+        return $obj;
+    }
+    public function deleteRoom($id){
+        $sql = "DELETE FROM $this->table WHERE ID='$id' ";
+        $result = mysqli_query($this->conn,$sql);
+        $obj = mysqli_fetch_object($result);
+        return $obj;
     }
 }
 ?>

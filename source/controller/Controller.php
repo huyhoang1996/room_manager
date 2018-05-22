@@ -5,6 +5,8 @@ require "controller/web/DashBoardController.php";
 require "controller/web/HomeController.php";
 require "controller/web/RoomController.php";
 require "controller/api/ApiUserController.php";
+require "controller/api/ApiRoomController.php";
+
 
 Use controller\web\UserController;
 Use controller\web\DashBoardController;
@@ -12,6 +14,8 @@ Use controller\web\HomeController;
 Use controller\web\RoomController;
 
 Use controller\api\ApiUserController;
+Use controller\api\ApiRoomController;
+
 class Controller
 {
     function handleWebRequest($web){
@@ -63,6 +67,19 @@ class Controller
                     case 'dashboard':
                         $this->useWebController('DashBoardController','home');
                     break;
+                    case 'list_data':
+                        $this->useWebController('RoomController','list_data');
+                    break;
+                    case 'add_room':
+                        $this->useWebController('RoomController','add_room');
+                    break; 
+                    case 'update_room':
+                        $this->useWebController('RoomController','update_room');
+                    break;
+                    case 'delete_room':
+                        $this->useWebController('RoomController','delete_room');
+                    break;
+
                     default:
                         echo $web;
                     break;
@@ -87,6 +104,12 @@ class Controller
         switch($api){
             case 'login':
             $this->useApiController('ApiUserController','login');
+            break;
+            case 'add_room':
+            $this->useApiController('ApiRoomController','add_room');
+            break;
+            case 'update_room':
+            $this->useApiController('ApiRoomController','update_room');
             break;
             default:
                 echo $api;
@@ -119,6 +142,9 @@ class Controller
         switch($controller){
             case 'ApiUserController':
                 $control = new ApiUserController;
+            break;
+            case 'ApiRoomController':
+                $control = new ApiRoomController;
             break;
             default:
                 echo "invalidate controller";
