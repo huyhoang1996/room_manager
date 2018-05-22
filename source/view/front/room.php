@@ -30,9 +30,9 @@
                             <div id="dp"></div>
                         </div>
                     </div>
-                    <div class="footer">
+                    <!-- <div class="footer">
                         <button class="btn btn-default" type="button" onclick="requestSchedule()">save</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -118,6 +118,16 @@
                 }
             }
         };
+        
+        dp.onEventMove = function(args) {
+            var event = args.e.data;
+            console.log(event);
+        };
+        
+        dp.onEventResize = function(args) {
+            var event = args.e.data;
+            console.log(event);
+        };
 
         var listSchedule = [];
         // dp.events.add(e);
@@ -132,6 +142,7 @@
                 labname : checkedLab.name
             }
             listSchedule.push(result);
+            requestSchedule()
             // renderBookList();
         }
         
@@ -168,6 +179,7 @@
                 },
                 statusCode: {
                     200: function( response ) {
+                        listSchedule=[];
                         loadSchedule();
                     },
                     404: function(response) {
