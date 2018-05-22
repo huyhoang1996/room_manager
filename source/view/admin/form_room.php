@@ -31,7 +31,7 @@
         function handleForm(){
             var name = $('#name').val();
             if (name !=""){
-                var data_is_exist = '<?php echo($data->name); ?>';
+                var data_is_exist = '<?php if(isset($data)){ echo($data->id); }else{echo (null);} ?>';
                 if(data_is_exist){
                     updateRoom();
                 }else{

@@ -30,7 +30,7 @@ class RoomController
     public function index(){
         $room = new Room;
         $data = $room->all();
-        $this->view('front/room.php');
+        $this->view('front/room.php',$data);
     }
     public function list_data(){
         $room = new Room;

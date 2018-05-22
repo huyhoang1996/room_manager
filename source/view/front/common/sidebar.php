@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper">
     <div class="logo">
         <a href="" class="simple-text">
-            Manager Room
+            WELLCOME USER
         </a>
     </div>
 

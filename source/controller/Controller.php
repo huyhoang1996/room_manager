@@ -4,8 +4,11 @@ require "controller/web/UserController.php";
 require "controller/web/DashBoardController.php";
 require "controller/web/HomeController.php";
 require "controller/web/RoomController.php";
+
 require "controller/api/ApiUserController.php";
+require "controller/api/ApiScheduleController.php";
 require "controller/api/ApiRoomController.php";
+
 
 
 Use controller\web\UserController;
@@ -14,6 +17,7 @@ Use controller\web\HomeController;
 Use controller\web\RoomController;
 
 Use controller\api\ApiUserController;
+Use controller\api\ApiScheduleController;
 Use controller\api\ApiRoomController;
 
 class Controller
@@ -103,13 +107,22 @@ class Controller
     function handleApiRequest($api){
         switch($api){
             case 'login':
-            $this->useApiController('ApiUserController','login');
+                $this->useApiController('ApiUserController','login');
+            break;
+            case 'schedule':
+                $this->useApiController('ApiScheduleController','store');
+            break;
+            case 'schedule-show':
+                $this->useApiController('ApiScheduleController','show');
             break;
             case 'add_room':
-            $this->useApiController('ApiRoomController','add_room');
+                $this->useApiController('ApiRoomController','add_room');
             break;
             case 'update_room':
-            $this->useApiController('ApiRoomController','update_room');
+                $this->useApiController('ApiRoomController','update_room');
+            break;
+            case 'schedule-detroy':
+                $this->useApiController('ApiScheduleController','detroy');
             break;
             default:
                 echo $api;
@@ -142,6 +155,9 @@ class Controller
         switch($controller){
             case 'ApiUserController':
                 $control = new ApiUserController;
+            break;
+            case 'ApiScheduleController':
+                $control = new ApiScheduleController;
             break;
             case 'ApiRoomController':
                 $control = new ApiRoomController;
