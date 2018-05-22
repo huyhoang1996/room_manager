@@ -4,7 +4,9 @@ require "controller/web/UserController.php";
 require "controller/web/DashBoardController.php";
 require "controller/web/HomeController.php";
 require "controller/web/RoomController.php";
+
 require "controller/api/ApiUserController.php";
+require "controller/api/ApiScheduleController.php";
 
 Use controller\web\UserController;
 Use controller\web\DashBoardController;
@@ -12,6 +14,7 @@ Use controller\web\HomeController;
 Use controller\web\RoomController;
 
 Use controller\api\ApiUserController;
+Use controller\api\ApiScheduleController;
 class Controller
 {
     function handleWebRequest($web){
@@ -86,7 +89,13 @@ class Controller
     function handleApiRequest($api){
         switch($api){
             case 'login':
-            $this->useApiController('ApiUserController','login');
+                $this->useApiController('ApiUserController','login');
+            break;
+            case 'schedule':
+                $this->useApiController('ApiScheduleController','store');
+            break;
+            case 'schedule-show':
+                $this->useApiController('ApiScheduleController','show');
             break;
             default:
                 echo $api;
@@ -119,6 +128,9 @@ class Controller
         switch($controller){
             case 'ApiUserController':
                 $control = new ApiUserController;
+            break;
+            case 'ApiScheduleController':
+                $control = new ApiScheduleController;
             break;
             default:
                 echo "invalidate controller";

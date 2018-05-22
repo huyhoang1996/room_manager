@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <link rel="icon" type="image/png" href="public/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <?php startblock('title') ?>
     <?php endblock() ?>
@@ -32,8 +32,12 @@
 </body>
     <!--   Core JS Files   -->
     <script src="public/assets/js/jquery-3.3.1.min.js" type="text/javascript"></script>
-	<script src="public/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="public/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="public/assets/js/main.js" type="text/javascript"></script>
+    <?php $user = isset($_SESSION['user'])? $_SESSION['user']:'' ?>
+    <script>
+       var User = '<?php echo json_encode($user) ?>';
+    </script>
     <?php startblock('script') ?>
     <?php endblock() ?>
 </html>

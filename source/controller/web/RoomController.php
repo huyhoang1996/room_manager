@@ -17,8 +17,7 @@ class RoomController
     public function index(){
         $room = new Room;
         $data = $room->all();
-        var_dump($data );exit();
-        $this->view('front/room.php');
+        $this->view('front/room.php',$data);
     }
 
     function view($view,$parram = null){
